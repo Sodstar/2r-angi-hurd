@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тооны хүрд</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#eef5ff; --grid:rgba(70,120,200,.13); --surface:#ffffff; --ink:#24304a; --muted:#66718a;
+  --line:#d6e3f5; --good:#16a34a; --good-bg:#dcfce7; --bad:#e0442f; --bad-bg:#fee4df;
+  --gold:#ffb400; --empty:#d3dbe8; --shadow:rgba(36,48,74,.14);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#151d31; --grid:rgba(140,170,230,.08); --surface:#212b45; --ink:#eef2fb; --muted:#a3adc6;
+    --line:#33405f; --good:#4ade80; --good-bg:#16351f; --bad:#ff8a73; --bad-bg:#3d2224;
+    --empty:#3c4766; --shadow:rgba(0,0,0,.35); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151d31; --grid:rgba(140,170,230,.08); --surface:#212b45; --ink:#eef2fb; --muted:#a3adc6;
+  --line:#33405f; --good:#4ade80; --good-bg:#16351f; --bad:#ff8a73; --bad-bg:#3d2224;
+  --empty:#3c4766; --shadow:rgba(0,0,0,.35); color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  font-family:'Nunito',ui-rounded,'Segoe UI Rounded','Segoe UI',system-ui,-apple-system,sans-serif;
+  font-weight:800; -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible{outline:4px solid #3b82f6;outline-offset:3px}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px 40px}
+
+/* header */
+.top{display:flex;align-items:center;gap:10px;padding:8px 0 4px}
+.top h1{flex:1;margin:0;font-size:22px;font-weight:900;text-align:center}
+.iconbtn{width:46px;height:46px;border-radius:14px;background:var(--surface);font-size:22px;
+  box-shadow:0 4px 0 var(--shadow);display:grid;place-items:center}
+.iconbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--shadow)}
+.iconbtn.hide{visibility:hidden}
+
+/* chunky colored button */
+.c3d{--cd:color-mix(in srgb,var(--c) 70%,#000);background:var(--c);color:#fff;
+  box-shadow:0 6px 0 var(--cd);border-radius:18px;transition:transform .06s}
+.c3d:active{transform:translateY(5px);box-shadow:0 1px 0 var(--cd)}
+
+/* home */
+.hero{display:flex;align-items:flex-end;gap:10px;margin:10px 0 18px}
+.mascot{font-size:64px;line-height:1;filter:drop-shadow(0 4px 0 var(--shadow))}
+.bob{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.bubble{position:relative;background:var(--surface);border-radius:20px;padding:14px 16px;font-size:18px;
+  line-height:1.3;box-shadow:0 4px 0 var(--shadow);margin-bottom:12px}
+.bubble::before{content:"";position:absolute;left:-9px;bottom:14px;border:10px solid transparent;
+  border-right-color:var(--surface);border-left:0}
+.seg{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--surface);padding:8px;
+  border-radius:18px;box-shadow:0 4px 0 var(--shadow);margin-bottom:22px}
+.seg span{padding:0 6px;color:var(--muted);font-size:15px}
+.seg button{flex:1;min-width:110px;padding:10px 12px;border-radius:12px;font-size:17px;background:var(--paper)}
+.seg button.on{background:#3b82f6;color:#fff}
+h2{font-size:18px;margin:6px 4px 10px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+.tbtn{aspect-ratio:3/3.6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px}
+.tbtn b{font-size:clamp(26px,8vw,38px);font-weight:900;line-height:1}
+.stars{display:inline-flex;gap:1px;font-size:13px;letter-spacing:-1px}
+.stars i{font-style:normal;color:rgba(255,255,255,.4)}
+.stars i.on{color:#ffe14d;text-shadow:0 1px 0 rgba(0,0,0,.25)}
+.bigbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:62px;
+  padding:12px 16px;font-size:20px;font-weight:900;text-align:center}
+.mixbtn{margin:-6px 0 26px}
+.mixbtn .stars{font-size:16px}
+.tip{color:var(--muted);font-size:15px;line-height:1.45;text-align:center;margin:8px 8px 18px}
+
+/* table view */
+.tcard{background:var(--surface);border-radius:24px;overflow:hidden;box-shadow:0 6px 0 var(--shadow);border:4px solid var(--c)}
+.thead{background:var(--c);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:6px 18px}
+.tnum{font-size:56px;font-weight:900;line-height:1.1}
+.thead .stars{font-size:22px}
+.rows{padding:10px 14px;display:grid;gap:4px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;border-radius:12px;font-size:26px}
+.row:nth-child(odd){background:color-mix(in srgb,var(--c) 9%,transparent)}
+.row b{min-width:64px;text-align:right;font-weight:900;color:var(--c)}
+.row.hid b{color:var(--muted);background:var(--paper);border:2px dashed var(--line);border-radius:10px;text-align:center}
+.ghost{display:block;width:calc(100% - 28px);margin:4px 14px 14px;padding:12px;border-radius:14px;
+  background:var(--paper);font-size:17px;border:2px solid var(--line)}
+.actions{display:grid;gap:14px}
+
+/* quiz */
+.progress{display:flex;gap:6px;justify-content:center;margin:10px 0 14px}
+.progress i{width:22px;height:22px;border-radius:50%;background:var(--empty);transition:background .3s,transform .3s}
+.progress i.on{background:var(--c);transform:scale(1.1)}
+.qcard{background:var(--surface);border-radius:26px;padding:20px 14px 16px;box-shadow:0 6px 0 var(--shadow);
+  border-top:10px solid var(--c);text-align:center}
+.q{display:flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,14px);font-size:clamp(46px,14vw,74px);font-weight:900;line-height:1.1}
+.q .op{color:var(--muted);font-size:.75em}
+.slot{min-width:1.9em;padding:2px 10px;border-radius:18px;border:4px dashed var(--line);color:var(--muted)}
+.slot.typing{color:var(--ink);border-style:solid;border-color:var(--c)}
+.slot.good{color:var(--good);background:var(--good-bg);border:4px solid var(--good)}
+.slot.fix{color:var(--good);background:var(--good-bg);border:4px solid var(--good);font-size:.9em}
+.slot s{color:var(--bad);font-size:.55em;margin-right:6px;vertical-align:middle}
+.say{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;min-height:44px;font-size:18px;line-height:1.3}
+.say .mascot{font-size:36px}
+.pop{animation:pop .35s ease}
+@keyframes pop{40%{transform:scale(1.18)}}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.hint{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:14px 0 0}
+.hint:empty{display:none}
+.hint .lbl{width:100%;text-align:center;color:var(--muted);font-size:15px}
+.chip{background:var(--surface);border:3px solid var(--c);border-radius:12px;padding:4px 10px;font-size:20px;box-shadow:0 3px 0 var(--shadow)}
+.chip.q-mark{background:var(--c);color:#fff}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.choice{background:var(--surface);border-radius:20px;min-height:84px;font-size:38px;font-weight:900;
+  box-shadow:0 6px 0 var(--shadow);border:3px solid var(--line)}
+.choice:active{transform:translateY(4px);box-shadow:0 2px 0 var(--shadow)}
+.choice.right{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.choice.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.choice:disabled{cursor:default}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.pad button{background:var(--surface);border-radius:16px;min-height:62px;font-size:30px;font-weight:900;
+  box-shadow:0 5px 0 var(--shadow);border:3px solid var(--line)}
+.pad button:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+.pad .k-ok{--cd:color-mix(in srgb,var(--c) 70%,#000);background:var(--c);color:#fff;border-color:var(--c);box-shadow:0 5px 0 var(--cd)}
+.pad .k-del{color:var(--muted)}
+.pad button:disabled{opacity:.45}
+.qfoot{display:flex;gap:12px;margin-top:18px}
+.qfoot .ghost{margin:0;width:auto;flex:0 0 auto;padding:12px 16px}
+.qfoot .bigbtn{flex:1}
+.hidden{display:none!important}
+
+/* result */
+.result{text-align:center;background:var(--surface);border-radius:28px;padding:22px 16px;box-shadow:0 6px 0 var(--shadow);border-top:10px solid var(--c)}
+.bigstars{font-size:64px;letter-spacing:4px;line-height:1.1}
+.bigstars i{font-style:normal;color:var(--empty);display:inline-block}
+.bigstars i.on{color:var(--gold);animation:starIn .5s both}
+@keyframes starIn{0%{transform:scale(0) rotate(-90deg)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+.result h2{color:var(--ink);font-size:26px;margin:10px 0 4px}
+.result p{color:var(--muted);margin:0 0 6px;font-size:17px}
+.missed{margin:16px 0 4px;padding:12px;border-radius:18px;background:var(--paper)}
+.missed b{display:block;margin-bottom:8px;font-size:16px}
+.missed .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.result + .actions{margin-top:20px}
+.plain{background:var(--surface);color:var(--ink);box-shadow:0 6px 0 var(--shadow);border-radius:18px}
+.plain:active{transform:translateY(5px);box-shadow:0 1px 0 var(--shadow)}
+
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:10}
+.confetti span{position:absolute;top:-40px;animation:fall 2.8s ease-in forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(540deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.confetti{display:none}}
+@media (max-width:380px){.grid{gap:8px}.choice{min-height:72px;font-size:32px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <button id="back" class="iconbtn hide" aria-label="Буцах">←</button>
+    <h1 id="title">Тооны хүрд</h1>
+    <button id="snd" class="iconbtn" aria-label="Дуу">🔊</button>
+  </header>
+  <main id="app"></main>
+</div>
+<script>
+const KEY='toonii-hurd-v1';
+const COLORS=['#e53935','#1e9fd8','#1f9d55','#f08c00','#62a832','#3949ab','#12998b','#d81b7a','#8e3fb5','#1b6fc2'];
+const colorOf=n=>n==='mix'?'#ff6b4a':COLORS[(n-1)%10];
+const range=(a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
+const rand=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=arr=>arr[Math.floor(Math.random()*arr.length)];
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+const $=s=>document.querySelector(s);
+const app=$('#app');
+
+/* Монгол хэлний харьяалахын нөхцөл: 3-ын, 4-ийн, 6-гийн … */
+function gen(n){const m={1:'ийн',2:'ын',3:'ын',4:'ийн',5:'ын',6:'гийн',7:'гийн',8:'ын',9:'ийн',0:'ын'};return n+'-'+m[n%10]}
+const tableName=n=>n==='mix'?'Холимог шалгалт':gen(n)+' хүрд';
+
+/* хадгалалт */
+function load(){
+  try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');return{stars:s.stars||{},sound:s.sound!==false,answer:s.answer==='type'?'type':'choice'}}
+  catch(e){return{stars:{},sound:true,answer:'choice'}}
+}
+const store=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+
+/* дуу */
+let actx=null;
+function tone(freqs,dur=.13,type='sine'){
+  if(!store.sound)return;
+  try{
+    actx=actx||new(window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{
+      const o=actx.createOscillator(),g=actx.createGain(),t=actx.currentTime+i*dur;
+      o.type=type;o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.18,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+      o.connect(g).connect(actx.destination);o.start(t);o.stop(t+dur+.03);
+    });
+  }catch(e){}
+}
+const sfx={good:()=>tone([660,880]),bad:()=>tone([330,247],.16,'triangle'),win:()=>tone([523,659,784,1047],.14),tap:()=>tone([520],.05)};
+function paintSound(){$('#snd').textContent=store.sound?'🔊':'🔇'}
+$('#snd').onclick=()=>{store.sound=!store.sound;save();paintSound();sfx.tap()};
+paintSound();
+
+const S={screen:'home',table:null,hideAll:false,revealed:new Set()};
+const GOOD=['Гайхалтай!','Зөв байна!','Ёстой мундаг!','Супер!','Яг зөв!','Чи чадлаа!'];
+const ASK=['Хэд вэ?','Бодоод үзээрэй!','Чи мэднэ шүү!'];
+
+function setHeader(back,title){$('#back').classList.toggle('hide',!back);$('#title').textContent=title}
+function starsHTML(k){const s=store.stars[k]||0;return '<span class="stars" aria-label="'+s+' од">'+[1,2,3].map(i=>'<i class="'+(i<=s?'on':'')+'">★</i>').join('')+'</span>'}
+
+/* ---------- Нүүр ---------- */
+function renderHome(){
+  S.screen='home';setHeader(false,'Тооны хүрд');
+  const btn=n=>`<button class="tbtn c3d" style="--c:${colorOf(n)}" data-t="${n}" aria-label="${tableName(n)}"><b>${n}</b>${starsHTML(n)}</button>`;
+  app.innerHTML=`
+  <section class="hero"><div class="mascot bob" aria-hidden="true">🦉</div>
+    <div class="bubble">Сайн уу! Өнөөдөр аль хүрдийг цээжлэх вэ?</div></section>
+  <div class="seg" role="group" aria-label="Хариулах арга"><span>Хариулах арга:</span>
+    <button data-ans="choice" class="${store.answer==='choice'?'on':''}">👆 Сонгох</button>
+    <button data-ans="type" class="${store.answer==='type'?'on':''}">✏️ Бичих</button></div>
+  <h2>Хүрд 1–10</h2>
+  <div class="grid">${range(1,10).map(btn).join('')}</div>
+  <button class="bigbtn c3d mixbtn" style="--c:${colorOf('mix')}" data-t="mix">🎲 Холимог шалгалт ${starsHTML('mix')}</button>
+  <h2>Ахисан хүрд 11–20</h2>
+  <div class="grid">${range(11,20).map(btn).join('')}</div>
+  <p class="tip">Алдаагүй бол ⭐⭐⭐ авна. Бүх хүрдээ 3 одтой болгоорой!</p>`;
+}
+
+/* ---------- Хүрд харах ---------- */
+function renderTable(){
+  S.screen='table';const n=S.table,c=colorOf(n);setHeader(true,tableName(n));
+  const rows=range(1,10).map(b=>{
+    const shown=!S.hideAll||S.revealed.has(b);
+    return `<button class="row ${shown?'':'hid'}" data-rev="${b}"><span>${n} × ${b} =</span><b>${shown?n*b:'?'}</b></button>`;
+  }).join('');
+  app.innerHTML=`
+  <div class="tcard" style="--c:${c}">
+    <div class="thead"><span class="tnum">${n}</span>${starsHTML(n)}</div>
+    <div class="rows">${rows}</div>
+    <button class="ghost" data-act="toggleHide">${S.hideAll?'👀 Бүгдийг харуулах':'🙈 Хариуг нуух'}</button>
+  </div>
+  <p class="tip">${S.hideAll?'Хариуг толгойдоо бодоод, дээр нь дарж шалгаарай.':'Эхлээд 2–3 удаа чангаар уншаарай. Дараа нь хариуг нууж өөрийгөө шалгаарай.'}</p>
+  <div class="actions">
+    <button class="bigbtn c3d" style="--c:${c}" data-act="order">➡️ Дарааллаар дасгал</button>
+    <button class="bigbtn c3d" style="--c:${colorOf('mix')}" data-act="random">🎲 Санамсаргүй дасгал</button>
+  </div>`;
+}
+
+/* ---------- Дасгал ---------- */
+function makeChoices({a,b}){
+  const ans=a*b,out=new Set();
+  const near=shuffle([a*(b+1),a*(b-1),(a+1)*b,(a-1)*b]);
+  const far=shuffle([ans+1,ans-1,ans+2,ans-2,ans+10]);
+  for(const v of near.concat(far)){if(v>0&&v!==ans)out.add(v);if(out.size===3)break}
+  return shuffle([ans,...out]);
+}
+function startQuiz(mode){
+  const t=S.table;let items;
+  if(t==='mix'){const m=new Map();while(m.size<10){const a=rand(2,10),b=rand(2,10);m.set(a+'x'+b,{a,b})}items=[...m.values()]}
+  else{items=range(1,10).map(b=>({a:t,b}));if(mode==='random')shuffle(items)}
+  Object.assign(S,{screen:'quiz',mode,queue:items,total:items.length,done:0,mistakes:0,missed:[]});
+  nextQ();
+}
+function nextQ(){
+  if(!S.queue.length)return finish();
+  S.cur=S.queue.shift();S.input='';S.locked=false;
+  if(store.answer==='choice')S.choices=makeChoices(S.cur);
+  renderQuiz();
+}
+function renderQuiz(){
+  const {a,b,again}=S.cur,c=colorOf(S.table==='mix'?a:S.table);
+  setHeader(true,tableName(S.table));
+  const dots=range(1,S.total).map(i=>`<i class="${i<=S.done?'on':''}"></i>`).join('');
+  const ui=store.answer==='choice'
+    ?`<div class="choices">${S.choices.map(v=>`<button class="choice" data-ch="${v}">${v}</button>`).join('')}</div>`
+    :`<div class="pad">${range(1,9).map(d=>`<button data-k="${d}">${d}</button>`).join('')}
+       <button data-k="del" class="k-del" aria-label="Устгах">⌫</button><button data-k="0">0</button>
+       <button data-k="ok" class="k-ok" aria-label="Шалгах">✓</button></div>`;
+  app.innerHTML=`
+  <div style="--c:${c}">
+    <div class="progress" aria-label="${S.done}/${S.total}">${dots}</div>
+    <div class="qcard">
+      <div class="q" aria-live="polite"><span>${a}</span><span class="op">×</span><span>${b}</span><span class="op">=</span><span class="slot" id="slot">?</span></div>
+      <div class="say"><span class="mascot" id="mascot" aria-hidden="true">${again?'💪':'🦉'}</span><span id="msg">${again?'Энэ асуулт дахиад ирлээ. Чи чадна!':pick(ASK)}</span></div>
+      <div class="hint" id="hint"></div>
+    </div>
+    <div id="ui">${ui}</div>
+    <div class="qfoot">
+      <button class="ghost" id="hintBtn" data-act="hint">💡 Тусламж</button>
+      <button class="bigbtn c3d hidden" id="cont" data-act="cont" style="--c:${c}">Ойлголоо ➜</button>
+    </div>
+  </div>`;
+}
+function showHint(){
+  const {a,b}=S.cur,box=$('#hint');if(box.innerHTML)return;
+  const steps=range(1,b).map(i=>i<b?`<span class="chip">${a*i}</span>`:`<span class="chip q-mark">?</span>`).join('');
+  box.innerHTML=`<div class="lbl">${b} удаа ${a} нэмж тоолъё:</div>${steps}`;
+  $('#hintBtn').disabled=true;
+}
+function setMsg(t,face){$('#msg').textContent=t;$('#mascot').textContent=face}
+function typeKey(k){
+  if(S.locked)return;
+  const slot=$('#slot');
+  if(k==='del'){S.input=S.input.slice(0,-1)}
+  else if(k==='ok'){if(S.input)answer(+S.input);return}
+  else if(S.input.length<3){S.input=(S.input+k).replace(/^0+(?=\d)/,'')}
+  slot.textContent=S.input||'?';slot.className='slot'+(S.input?' typing':'');
+}
+function answer(v,btn){
+  if(S.locked)return;S.locked=true;
+  const {a,b}=S.cur,ans=a*b,slot=$('#slot');
+  document.querySelectorAll('#ui button').forEach(x=>x.disabled=true);
+  $('#hintBtn').disabled=true;
+  if(v===ans){
+    S.done++;
+    slot.textContent=ans;slot.className='slot good pop';
+    if(btn)btn.classList.add('right','pop');
+    const dot=document.querySelectorAll('.progress i')[S.done-1];if(dot)dot.classList.add('on');
+    setMsg(pick(GOOD),'🥳');sfx.good();
+    setTimeout(nextQ,950);
+  }else{
+    S.mistakes++;
+    if(!S.missed.some(m=>m.a===a&&m.b===b))S.missed.push({a,b});
+    slot.innerHTML=(store.answer==='type'?`<s>${v}</s>`:'')+ans;slot.className='slot fix pop';
+    if(btn){btn.classList.add('wrong','shake');document.querySelectorAll('.choice').forEach(x=>{if(+x.dataset.ch===ans)x.classList.add('right')})}
+    else{$('.qcard').classList.add('shake')}
+    setMsg(`${a} × ${b} = ${ans} шүү. Энэ асуулт дахиад гарна!`,'🤗');sfx.bad();
+    S.queue.splice(Math.min(2,S.queue.length),0,{a,b,again:true});
+    $('#cont').classList.remove('hidden');$('#cont').focus();
+  }
+}
+
+/* ---------- Үр дүн ---------- */
+function confetti(){
+  const box=document.createElement('div');box.className='confetti';
+  const em=['⭐','🎉','✨','🌟','🎈'];
+  for(let i=0;i<36;i++){const s=document.createElement('span');s.textContent=em[i%em.length];
+    s.style.left=Math.random()*100+'%';s.style.animationDelay=Math.random()*.8+'s';
+    s.style.fontSize=16+Math.random()*20+'px';s.style.setProperty('--dx',(Math.random()*80-40)+'px');box.appendChild(s)}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),4000);
+}
+function finish(){
+  S.screen='result';
+  const t=S.table,stars=S.mistakes===0?3:S.mistakes<=2?2:1,prev=store.stars[t]||0;
+  if(stars>prev){store.stars[t]=stars;save()}
+  const c=colorOf(t);setHeader(true,tableName(t));
+  const title=stars===3?'Чи жинхэнэ аварга!':stars===2?'Маш сайн байна!':'Сайн оролдлоо!';
+  const sub=S.mistakes===0?'Нэг ч алдаагүй!':`${S.mistakes} алдаа гаргасан ч бүгдийг нь засчихлаа.`;
+  const record=stars>prev&&prev>0?'<p>🏅 Шинэ дээд амжилт!</p>':'';
+  const missed=S.missed.length?`<div class="missed"><b>Эдгээрийг дахиад нэг уншаарай:</b><div class="chips">${S.missed.map(m=>`<span class="chip">${m.a} × ${m.b} = ${m.a*m.b}</span>`).join('')}</div></div>`:'';
+  let primary='';
+  if(t!=='mix'&&S.mode==='order')primary=`<button class="bigbtn c3d" style="--c:${colorOf('mix')}" data-act="random">🎲 Одоо санамсаргүйгээр</button>`;
+  else if(t!=='mix'&&t<20)primary=`<button class="bigbtn c3d" style="--c:${colorOf(t+1)}" data-act="nextTable">➡️ ${tableName(t+1)}</button>`;
+  app.innerHTML=`
+  <div class="result" style="--c:${c}">
+    <div class="bigstars">${[1,2,3].map(i=>`<i class="${i<=stars?'on':''}" style="animation-delay:${i*.25}s">★</i>`).join('')}</div>
+    <h2>${title}</h2><p>${sub}</p>${record}${missed}
+  </div>
+  <div class="actions">${primary}
+    <button class="bigbtn plain" data-act="again">🔁 Дахин тоглох</button>
+    <button class="bigbtn plain" data-act="home">🏠 Нүүр хуудас</button>
+  </div>`;
+  sfx.win();if(stars>=2)confetti();
+}
+
+/* ---------- Үйлдлүүд ---------- */
+function openTable(n){S.table=n;S.hideAll=false;S.revealed=new Set();renderTable();window.scrollTo(0,0)}
+app.addEventListener('click',e=>{
+  const el=e.target.closest('button');if(!el)return;
+  const d=el.dataset;
+  if(d.ans){store.answer=d.ans;save();sfx.tap();renderHome();return}
+  if(d.t){sfx.tap();if(d.t==='mix'){S.table='mix';startQuiz('random')}else openTable(+d.t);return}
+  if(d.rev){const b=+d.rev;if(S.hideAll){S.revealed.has(b)?S.revealed.delete(b):S.revealed.add(b);sfx.tap();renderTable()}return}
+  if(d.ch){answer(+d.ch,el);return}
+  if(d.k){typeKey(d.k);return}
+  switch(d.act){
+    case 'toggleHide':S.hideAll=!S.hideAll;S.revealed=new Set();renderTable();break;
+    case 'order':startQuiz('order');break;
+    case 'random':startQuiz('random');break;
+    case 'hint':showHint();break;
+    case 'cont':nextQ();break;
+    case 'again':startQuiz(S.mode||'random');break;
+    case 'nextTable':openTable(S.table+1);break;
+    case 'home':renderHome();break;
+  }
+});
+$('#back').onclick=()=>{
+  if(S.screen==='table'||S.table==='mix')renderHome();
+  else if(S.screen==='quiz'||S.screen==='result')renderTable();
+  else renderHome();
+};
+document.addEventListener('keydown',e=>{
+  if(S.screen!=='quiz')return;
+  if(S.locked){if(e.key==='Enter'&&!$('#cont').classList.contains('hidden')){e.preventDefault();nextQ()}return}
+  if(store.answer==='type'){
+    if(/^\d$/.test(e.key))typeKey(e.key);
+    else if(e.key==='Backspace')typeKey('del');
+    else if(e.key==='Enter'){e.preventDefault();typeKey('ok')}
+  }else if(/^[1-4]$/.test(e.key)){const b=document.querySelectorAll('.choice')[+e.key-1];if(b)answer(+b.dataset.ch,b)}
+});
+renderHome();
+</script>
+</body>
+</html>
